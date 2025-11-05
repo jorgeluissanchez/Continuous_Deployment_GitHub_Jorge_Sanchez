@@ -20,9 +20,10 @@ jobs:
           echo -n "verifying images:"
           docker images         
     - name: Deploy to minikube
-      run:
+      run: |
         kubectl apply -f k8s-node-app.yaml
+        sleep 10
     - name: Test service URLs
       run: |
           minikube service list
-          minikube service nodejs-app --url
+          minikube service nodejs-app -n default --url
